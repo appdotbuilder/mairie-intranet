@@ -131,7 +131,7 @@ export function DocumentManager() {
 
   if (isLoading) {
     return (
-      <div className="p-6">
+      <div className="space-y-6">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/3"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -145,11 +145,13 @@ export function DocumentManager() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">📁 Gestion des Documents</h1>
-          <p className="text-gray-600 mt-1">Gérez et organisez vos documents officiels</p>
+        <div className="bg-white px-4 py-2 rounded-lg border border-gray-200">
+          <p className="text-sm text-gray-600">
+            {filteredDocuments.length} document{filteredDocuments.length !== 1 ? 's' : ''} 
+            {searchQuery || categoryFilter !== 'all' || departmentFilter !== 'all' ? ' trouvé' + (filteredDocuments.length !== 1 ? 's' : '') : ''}
+          </p>
         </div>
         
         <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>

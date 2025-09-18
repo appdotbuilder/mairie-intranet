@@ -2,184 +2,281 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global styles for the French City Office Intranet */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --radius: 0.5rem;
+    /* French official colors palette */
+    --color-france-blue: #000091;
+    --color-france-red: #e1000f;
+    --color-france-gray: #3a3a3a;
+    
+    /* Custom color variables for consistency */
+    --sidebar-bg: #ffffff;
+    --sidebar-border: #e5e7eb;
+    --topbar-bg: #ffffff;
+    --topbar-border: #e5e7eb;
+    --content-bg: #f9fafb;
+    --card-bg: #ffffff;
+    --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    
+    /* Typography */
+    --font-family-sans: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
   body {
-    @apply bg-background text-foreground;
+    font-family: var(--font-family-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    background-color: var(--content-bg);
+    color: #1f2937;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+
+  /* Custom focus styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid var(--color-france-blue);
+    outline-offset: 2px;
   }
 }
 
 @layer components {
-  /* French city office theme customizations */
-  .intranet-gradient {
-    @apply bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700;
+  /* Professional card styling */
+  .professional-card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-200;
   }
-  
-  .city-card {
-    @apply bg-white/95 backdrop-blur-sm border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-200;
+
+  .professional-card-header {
+    @apply px-6 py-4 border-b border-gray-100 bg-gray-50/50;
   }
-  
+
+  .professional-card-content {
+    @apply px-6 py-4;
+  }
+
+  /* Enhanced sidebar styling */
+  .sidebar-nav-item {
+    @apply w-full justify-start text-left px-3 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150 border-r-2 border-transparent;
+  }
+
+  .sidebar-nav-item-active {
+    @apply bg-blue-50 text-blue-900 border-r-2 border-blue-500 font-medium;
+  }
+
+  /* Status indicators */
+  .status-dot-active {
+    @apply w-2 h-2 bg-green-500 rounded-full animate-pulse;
+  }
+
+  .status-dot-inactive {
+    @apply w-2 h-2 bg-gray-400 rounded-full;
+  }
+
+  /* French administration styling touches */
+  .france-accent {
+    @apply border-l-4 border-blue-600 bg-blue-50;
+  }
+
   .priority-urgent {
-    @apply bg-red-50 border-red-200 text-red-800;
+    @apply bg-red-50 border border-red-200 text-red-800;
   }
-  
+
   .priority-high {
-    @apply bg-orange-50 border-orange-200 text-orange-800;
+    @apply bg-orange-50 border border-orange-200 text-orange-800;
+  }
+
+  .priority-medium {
+    @apply bg-yellow-50 border border-yellow-200 text-yellow-800;
+  }
+
+  .priority-low {
+    @apply bg-gray-50 border border-gray-200 text-gray-600;
+  }
+
+  /* Professional layout spacing */
+  .content-container {
+    @apply max-w-7xl mx-auto px-6 py-6;
+  }
+
+  .section-spacing {
+    @apply space-y-6;
+  }
+
+  .grid-professional {
+    @apply grid gap-6;
+  }
+
+  /* Enhanced form styling */
+  .form-section {
+    @apply space-y-4;
+  }
+
+  .form-group {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-gray-700;
+  }
+
+  .form-description {
+    @apply text-sm text-gray-500;
+  }
+
+  /* Professional button variants */
+  .btn-france {
+    @apply bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-md transition-colors duration-150 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+  }
+
+  .btn-france-outline {
+    @apply border border-blue-600 text-blue-600 hover:bg-blue-50 font-medium px-4 py-2 rounded-md transition-colors duration-150;
+  }
+
+  /* Professional data display */
+  .data-table {
+    @apply min-w-full divide-y divide-gray-200;
+  }
+
+  .data-table-header {
+    @apply bg-gray-50;
+  }
+
+  .data-table-header-cell {
+    @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider;
+  }
+
+  .data-table-body {
+    @apply bg-white divide-y divide-gray-200;
+  }
+
+  .data-table-cell {
+    @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+  }
+
+  /* Notification styles */
+  .notification-urgent {
+    @apply bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-r-lg;
+  }
+
+  .notification-info {
+    @apply bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-r-lg;
+  }
+
+  .notification-success {
+    @apply bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-r-lg;
+  }
+
+  .notification-warning {
+    @apply bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-r-lg;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Print styles for official documents */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+    
+    .print-page-break {
+      page-break-before: always;
+    }
+    
+    body {
+      print-color-adjust: exact;
+    }
+  }
+}
+
+/* Responsive design improvements */
+@media (max-width: 768px) {
+  .sidebar-desktop {
+    transform: translateX(-100%);
   }
   
-  .status-completed {
-    @apply bg-green-50 border-green-200 text-green-800;
+  .sidebar-mobile-open {
+    transform: translateX(0);
+  }
+}
+
+/* High contrast mode support for accessibility */
+@media (prefers-contrast: high) {
+  :root {
+    --card-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
   }
   
-  .status-in-progress {
-    @apply bg-blue-50 border-blue-200 text-blue-800;
-  }
-  
-  .role-mayor {
-    @apply bg-purple-50 border-purple-200 text-purple-800;
-  }
-  
-  .role-secretary {
-    @apply bg-blue-50 border-blue-200 text-blue-800;
-  }
-  
-  .role-department-head {
-    @apply bg-green-50 border-green-200 text-green-800;
-  }
-
-  /* Enhanced visual elements for French administration theme */
-  .french-blue {
-    background: linear-gradient(135deg, #0047AB 0%, #1e40af 100%);
-  }
-  
-  .marianne-colors {
-    background: linear-gradient(45deg, #002654 0%, #FFFFFF 50%, #CE1126 100%);
+  .professional-card {
+    @apply border-2 border-gray-400;
   }
 }
 
-/* Custom scrollbar for better UX */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #c1c1c1;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a8a8a8;
-}
-
-/* Text utilities for better French typography */
-.text-fr {
-  font-feature-settings: "kern" 1, "liga" 1;
-  text-rendering: optimizeLegibility;
-}
-
-/* Animation enhancements */
-.fade-in {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Line clamping for text truncation */
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Print styles for document management */
-@media print {
-  .no-print {
-    display: none !important;
-  }
-  
-  .print-friendly {
-    background: white !important;
-    color: black !important;
-    box-shadow: none !important;
-    border: 1px solid #ddd !important;
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

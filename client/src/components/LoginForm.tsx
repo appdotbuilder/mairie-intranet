@@ -28,19 +28,31 @@ export function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <div className="mx-auto w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
-            <span className="text-2xl">🏛️</span>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-indigo-100">
+      {/* Background pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+      
+      <div className="relative z-10 w-full max-w-md">
+        {/* Header with French colors accent */}
+        <div className="text-center mb-8">
+          <div className="mx-auto w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+            <span className="text-3xl">🏛️</span>
           </div>
-          <CardTitle className="text-2xl font-bold text-gray-900">
-            Intranet Mairie
-          </CardTitle>
-          <CardDescription className="text-gray-600">
-            Connectez-vous à votre espace de travail
-          </CardDescription>
-        </CardHeader>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Intranet Mairie</h1>
+          <div className="w-16 h-1 bg-gradient-to-r from-blue-600 via-white to-red-600 rounded-full mx-auto mb-4"></div>
+          <p className="text-gray-600">République Française</p>
+          <p className="text-sm text-gray-500">Espace de travail sécurisé</p>
+        </div>
+
+        <Card className="shadow-xl border-0 bg-white/95 backdrop-blur">
+          <CardHeader className="text-center pb-4">
+            <CardTitle className="text-xl text-gray-900">
+              Connexion
+            </CardTitle>
+            <CardDescription className="text-gray-600">
+              Accédez à votre espace professionnel
+            </CardDescription>
+          </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
@@ -71,14 +83,51 @@ export function LoginForm() {
             )}
             <Button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium py-3 shadow-md"
               disabled={isLoading}
             >
-              {isLoading ? 'Connexion...' : 'Se connecter'}
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"></div>
+                  <span>Connexion en cours...</span>
+                </div>
+              ) : (
+                <div className="flex items-center justify-center space-x-2">
+                  <span>🔐</span>
+                  <span>Se connecter</span>
+                </div>
+              )}
             </Button>
           </form>
+          
+          {/* Footer */}
+          <div className="text-center pt-4 border-t border-gray-100">
+            <p className="text-xs text-gray-500">
+              Système informatique de la mairie
+            </p>
+            <p className="text-xs text-gray-400 mt-1">
+              Version 1.0 - Accès sécurisé et confidentiel
+            </p>
+          </div>
         </CardContent>
       </Card>
+      
+      {/* Demo credentials helper */}
+      <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur rounded-lg p-4 shadow-lg border border-gray-200 max-w-xs">
+        <h4 className="font-medium text-gray-900 mb-2">🔑 Comptes de démonstration</h4>
+        <div className="space-y-2 text-xs text-gray-600">
+          <div>
+            <strong>Maire:</strong> marie.dupont@mairie.fr / password123
+          </div>
+          <div>
+            <strong>Secrétaire:</strong> jean.martin@mairie.fr / password123  
+          </div>
+          <div>
+            <strong>Chef de Service:</strong> sophie.bernard@mairie.fr / password123
+          </div>
+        </div>
+      </div>
+      </div>
     </div>
   );
 }

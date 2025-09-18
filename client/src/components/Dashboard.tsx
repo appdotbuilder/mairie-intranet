@@ -41,7 +41,7 @@ export function Dashboard({ onViewChange }: DashboardProps) {
 
   if (isLoading) {
     return (
-      <div className="p-6 space-y-6">
+      <div className="space-y-6">
         <div className="animate-pulse">
           <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -55,26 +55,28 @@ export function Dashboard({ onViewChange }: DashboardProps) {
   }
 
   return (
-    <div className="p-6 space-y-6">
-      {/* Welcome header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            {getGreeting()}, {user?.first_name} ! 👋
-          </h1>
-          <p className="text-gray-600 mt-1">
-            Voici un aperçu de votre espace de travail
-          </p>
-        </div>
-        <div className="text-right">
-          <p className="text-sm text-gray-500">
-            {new Date().toLocaleDateString('fr-FR', {
-              weekday: 'long',
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </p>
+    <div className="space-y-6">
+      {/* Welcome section */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-100">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">
+              {getGreeting()}, {user?.first_name} ! 👋
+            </h2>
+            <p className="text-gray-600 mt-1">
+              Voici un aperçu de votre espace de travail
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-500">
+              {new Date().toLocaleDateString('fr-FR', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
+            </p>
+          </div>
         </div>
       </div>
 

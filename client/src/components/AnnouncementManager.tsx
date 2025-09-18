@@ -129,7 +129,7 @@ export function AnnouncementManager() {
 
   if (isLoading) {
     return (
-      <div className="p-6">
+      <div className="space-y-6">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/3"></div>
           <div className="space-y-4">
@@ -143,11 +143,13 @@ export function AnnouncementManager() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">📢 Annonces</h1>
-          <p className="text-gray-600 mt-1">Communications officielles et informations importantes</p>
+        <div className="bg-white px-4 py-2 rounded-lg border border-gray-200">
+          <p className="text-sm text-gray-600">
+            {announcements.filter(a => a.is_active).length} annonce{announcements.filter(a => a.is_active).length !== 1 ? 's' : ''} active{announcements.filter(a => a.is_active).length !== 1 ? 's' : ''} • 
+            {announcements.filter(a => a.is_urgent && a.is_active).length} urgente{announcements.filter(a => a.is_urgent && a.is_active).length !== 1 ? 's' : ''}
+          </p>
         </div>
         
         {canCreateAnnouncement && (

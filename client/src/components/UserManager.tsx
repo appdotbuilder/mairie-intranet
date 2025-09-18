@@ -123,7 +123,7 @@ export function UserManager() {
   // Check if current user is Mayor (only mayors can access user management)
   if (user?.role !== 'Mayor') {
     return (
-      <div className="p-6">
+      <div className="space-y-6">
         <div className="text-center py-12">
           <div className="text-4xl mb-4">🚫</div>
           <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -139,7 +139,7 @@ export function UserManager() {
 
   if (isLoading) {
     return (
-      <div className="p-6">
+      <div className="space-y-6">
         <div className="animate-pulse space-y-4">
           <div className="h-8 bg-gray-200 rounded w-1/3"></div>
           <div className="h-64 bg-gray-200 rounded"></div>
@@ -149,11 +149,13 @@ export function UserManager() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">👥 Gestion des Utilisateurs</h1>
-          <p className="text-gray-600 mt-1">Administrez les comptes utilisateurs de votre mairie</p>
+        <div className="bg-white px-4 py-2 rounded-lg border border-gray-200">
+          <p className="text-sm text-gray-600">
+            {filteredUsers.length} utilisateur{filteredUsers.length !== 1 ? 's' : ''} • 
+            {filteredUsers.filter(u => u.is_active).length} actif{filteredUsers.filter(u => u.is_active).length !== 1 ? 's' : ''}
+          </p>
         </div>
         
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
