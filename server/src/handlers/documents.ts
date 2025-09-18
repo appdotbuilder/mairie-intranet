@@ -1,24 +1,32 @@
+import { db } from '../db';
+import { documentsTable } from '../db/schema';
 import { type Document, type UploadDocumentInput, type DocumentCategory } from '../schema';
 
 export async function uploadDocument(input: UploadDocumentInput, uploadedBy: number): Promise<Document> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to store document metadata in the database
-  // after the file has been uploaded to the file system or cloud storage.
-  return Promise.resolve({
-    id: 1,
-    title: input.title,
-    description: input.description,
-    file_name: input.file_name,
-    file_path: input.file_path,
-    file_size: input.file_size,
-    mime_type: input.mime_type,
-    category: input.category,
-    department: input.department,
-    uploaded_by: uploadedBy,
-    is_public: input.is_public,
-    created_at: new Date(),
-    updated_at: new Date()
-  });
+  try {
+    // Insert document record into the database
+    const result = await db.insert(documentsTable)
+      .values({
+        title: input.title,
+        description: input.description,
+        file_name: input.file_name,
+        file_path: input.file_path,
+        file_size: input.file_size,
+        mime_type: input.mime_type,
+        category: input.category,
+        department: input.department,
+        uploaded_by: uploadedBy,
+        is_public: input.is_public
+      })
+      .returning()
+      .execute();
+
+    // Return the created document
+    return result[0];
+  } catch (error) {
+    console.error('Document upload failed:', error);
+    throw error;
+  }
 }
 
 export async function getAllDocuments(userId: number): Promise<Document[]> {

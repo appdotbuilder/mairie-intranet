@@ -1,4 +1,7 @@
 import { type Task, type CreateTaskInput, type UpdateTaskStatusInput, type TaskStatus } from '../schema';
+import { db } from '../db';
+import { tasksTable } from '../db/schema';
+import { eq, or, and, desc } from 'drizzle-orm';
 
 export async function createTask(input: CreateTaskInput, assignedBy: number): Promise<Task> {
   // This is a placeholder declaration! Real code should be implemented here.
@@ -34,10 +37,28 @@ export async function getTasksCreatedByUser(userId: number): Promise<Task[]> {
 }
 
 export async function getTasksByStatus(status: TaskStatus, userId: number): Promise<Task[]> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to filter tasks by status, showing only
-  // tasks that the user has access to (assigned to them or created by them).
-  return Promise.resolve([]);
+  try {
+    // Build query to get tasks with the specified status
+    // User can see tasks that are either assigned to them or created by them
+    const results = await db.select()
+      .from(tasksTable)
+      .where(
+        and(
+          eq(tasksTable.status, status),
+          or(
+            eq(tasksTable.assignee_id, userId),
+            eq(tasksTable.assigned_by, userId)
+          )
+        )
+      )
+      .orderBy(desc(tasksTable.created_at))
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch tasks by status:', error);
+    throw error;
+  }
 }
 
 export async function getTasksByDepartment(department: string, userId: number): Promise<Task[]> {

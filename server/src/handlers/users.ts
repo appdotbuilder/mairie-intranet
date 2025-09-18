@@ -1,40 +1,67 @@
+import { db } from '../db';
+import { usersTable } from '../db/schema';
 import { type User, type UserRole } from '../schema';
+import { eq } from 'drizzle-orm';
 
 export async function getAllUsers(): Promise<User[]> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to fetch all users from the database,
-  // with proper role-based access control (only certain roles can view all users).
-  return Promise.resolve([]);
+  try {
+    const results = await db.select()
+      .from(usersTable)
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch all users:', error);
+    throw error;
+  }
 }
 
 export async function getUsersByRole(role: UserRole): Promise<User[]> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to fetch users filtered by their role,
-  // useful for assigning tasks and managing departments.
-  return Promise.resolve([]);
+  try {
+    const results = await db.select()
+      .from(usersTable)
+      .where(eq(usersTable.role, role))
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch users by role:', error);
+    throw error;
+  }
 }
 
 export async function getUsersByDepartment(department: string): Promise<User[]> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to fetch users from a specific department,
-  // enabling department-based task assignment and document sharing.
-  return Promise.resolve([]);
+  try {
+    const results = await db.select()
+      .from(usersTable)
+      .where(eq(usersTable.department, department))
+      .execute();
+
+    return results;
+  } catch (error) {
+    console.error('Failed to fetch users by department:', error);
+    throw error;
+  }
 }
 
 export async function updateUserStatus(userId: number, isActive: boolean): Promise<User> {
-  // This is a placeholder declaration! Real code should be implemented here.
-  // The goal of this handler is to activate or deactivate user accounts,
-  // maintaining security by allowing only authorized roles to perform this action.
-  return Promise.resolve({
-    id: userId,
-    email: 'user@city.fr',
-    password_hash: '',
-    first_name: 'Updated',
-    last_name: 'User',
-    role: 'Secretary' as const,
-    department: 'Administration',
-    is_active: isActive,
-    created_at: new Date(),
-    updated_at: new Date()
-  });
+  try {
+    const results = await db.update(usersTable)
+      .set({ 
+        is_active: isActive,
+        updated_at: new Date()
+      })
+      .where(eq(usersTable.id, userId))
+      .returning()
+      .execute();
+
+    if (results.length === 0) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+
+    return results[0];
+  } catch (error) {
+    console.error('Failed to update user status:', error);
+    throw error;
+  }
 }
